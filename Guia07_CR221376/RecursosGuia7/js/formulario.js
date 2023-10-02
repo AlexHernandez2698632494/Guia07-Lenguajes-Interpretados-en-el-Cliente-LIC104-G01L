@@ -9,6 +9,7 @@ const inputDireccion = document.getElementById("idTxtDireccion");
 const inputNombrePais = document.getElementById("idNombrePais");
 const buttonLimpiarPaciente = document.getElementById("idBtnLimpiar");
 const buttonMostrarPaciente = document.getElementById("idBtnMostrar");
+const buttonActualizarPaciente=document.getElementById("idBtnActualizar");//editar los pacientes
 const buttonAgregarPaciente = document.getElementById("idBtnAgregar");
 const buttonAgregarPais = document.getElementById("idBtnAddPais");
 const notificacion = document.getElementById("idNotificacion"); // Componente de Bootstrap
@@ -68,7 +69,7 @@ function imprimirFilas() {
     let $fila = "";
     let contador = 1;
 
-    arrayPaciente.forEach((element) => {
+    arrayPaciente.forEach((element,indice) => {
         $fila += `<tr> <td scope="row" class="text-center fw-bold">${contador}</td>
 <td>${element[0]}</td>
 <td>${element[1]}</td>
@@ -77,13 +78,14 @@ function imprimirFilas() {
 <td>${element[4]}</td>
 <td>${element[5]}</td>
 <td>
-<button id="idBtnEditar${contador}" type="button" class="btn btn-primary" alt="Eliminar">
-<i class="bi bi-pencil-square"></i>
-</button> <button id="idẞtnEliminar${contador}" type="button" class="btn btn-danger" alt="Editar">
-<i class="bi bi-trash3-fill"></i>
-</button>
-</td>
-</tr>`;
+                <button type="button" class="btn btn-primary" data-id="${indice}" onclick="editarPaciente(${indice})">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="btn btn-danger" data-id="${indice}" onclick="eliminarPaciente(${indice})">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
+            </td>
+        </tr>`;
         contador++;
     });
     return $fila;
@@ -146,3 +148,68 @@ idModal.addEventListener("shown.bs.modal", () => {
 });
 //Ejecutar funcion al momento de cargar la pagina HTML
 limpiarForm();
+//editar pacientes y eliminar
+const editarPaciente = (indice) => {
+    const paciente = arrayPaciente[indice];
+    inputNombre.value = paciente[0];
+    inputApellido.value = paciente[1];
+    inputFechaNacimiento.value = paciente[2];
+    if (paciente[3] === "Hombre") {
+        inputRdMasculino.checked = true;
+        inputRdFemenino.checked = false;
+    } else {
+        inputRdMasculino.checked = false;
+        inputRdFemenino.checked = true;
+    }
+    cmbPais.value = paciente[4];
+    inputDireccion.value = paciente[5];
+    arrayPaciente.splice(indice, 1);
+    imprimirPacientes();
+};
+
+// Función para eliminar un paciente
+const eliminarPaciente = (indice) => {
+    const paciente = arrayPaciente[indice];
+    // Aquí puedes agregar código para enviar una confirmación al usuario, por ejemplo, usando window.confirm
+    const confirmacion = window.confirm(`¿Estás seguro de que deseas eliminar a ${paciente[0]} ${paciente[1]}?`);
+    if (confirmacion) {
+        arrayPaciente.splice(indice, 1);
+        imprimirPacientes();
+    }
+};
+
+let indiceEditando = undefined;
+
+// Función para añadir o editar un paciente
+const updatePaciente = function () {
+    let nombre = inputNombre.value;
+    let apellido = inputApellido.value;
+    let fechaNacimiento = inputFechaNacimiento.value;
+    let sexo = inputRdMasculino.checked ? "Hombre" : inputRdFemenino.checked ? "Mujer" : "";
+    let pais = cmbPais.value;
+    let labelPais = cmbPais.options[cmbPais.selectedIndex].text;
+    let direccion = inputDireccion.value;
+
+    if (nombre != "" && apellido != "" && fechaNacimiento != "" && sexo != "" && pais != 0 && direccion != "") {
+        // Si se está editando un paciente existente
+        if (indiceEditando !== undefined) {
+            arrayPaciente[indiceEditando] = [nombre, apellido, fechaNacimiento, sexo, labelPais, direccion];
+            // Limpiamos el índice de edición
+            indiceEditando = undefined;
+        } else {
+            // Si no se está editando, agregamos un nuevo paciente al array
+            arrayPaciente.push([nombre, apellido, fechaNacimiento, sexo, labelPais, direccion]);
+        }
+
+        // Restauramos el formulario y mostramos la notificación
+        limpiarForm();
+        mensaje.innerHTML = "Se han actualizado los datos del paciente existente";
+        toast.show();
+        // Actualizamos la tabla de pacientes
+        imprimirPacientes();
+    } else {
+        mensaje.innerHTML = "Faltan campos por completar";
+        toast.show();
+    }
+};
+
