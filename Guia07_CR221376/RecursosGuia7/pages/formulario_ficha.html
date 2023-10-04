@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/style2.css" rel="stylesheet" />
+    <link rel="icon" href="../img/js.png" sizes="32x32" type="image/png" />
+    <title>Manejando eventos</title>
+</head>
+
+<body>
+    <header>
+        <div class="px-3 py-2 text-bg-dark fixed-top">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="../index.html"
+                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <img src="../img/js.png" alt="" width="32" height="32" class="me-2" />
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small nav-bar">
+                        <li class="text-center">
+                            <a href="recursividad.html" class="nav-link text-white">
+                                <i class="bi bi-arrow-clockwise bi-2 d-block"></i>
+                                Recursividad
+                            </a>
+                        </li>
+                        <li class="text-center">
+                            <a href="tabla.html" class="nav-link text-white">
+                                <i class="bi bi-table bi-2 d-block"></i>
+                                Creando una Tabla
+                            </a>
+                        </li>
+                        <li class="text-center nav-bar-li">
+                            <a href="formulario.html" class="nav-link text-white">
+                                <i class="bi bi-ui-checks bi-2 d-block"></i>
+                                Formulario
+                            </a>
+                        </li>
+                        <li class="text-center nav-bar-li-active">
+                            <a href="formulario.html" class="nav-link text-white">
+                                <i class="bi bi-ui-checks bi-2 d-block"></i>
+                                Ficha de Inscripción
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-lg">
+        <!-- CONTINUAR CON EL CODIGO AQUI -->
+        <div class="row">
+            <div class="col-12 shadow-lg p-3 mt-5 bg-body rounded">
+                <h3>Formulario de Inscripción</h3>
+                <form id="studentForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="txtCarnet"
+                                    placeholder="Carnet" required/>
+                                <label for="txtCarnet">Carnet</label>
+                            </div>
+                        </div><div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="txtNombre"
+                                    placeholder="Nombre " />
+                                <label for="txtNombre">Nombre Completo
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-floating"> <input type="text" class="form-control" id="txtDUI"
+                                    placeholder="DUI">
+                                <label for="txtDUI"> DUI</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="txtNIT"
+                                    placeholder="NIT"/>
+                                <label for="txtNIT">NIT</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="txtFechaNacimiento"
+                                    placeholder="Fecha de nacimiento" > <label
+                                    for="txtFechaNacimiento">Fecha nacimiento</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="txtCorreo"
+                                    placeholder="correo"/>
+                                <label for="txtCorreo">Correo electronico</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="txtEdad"
+                                    placeholder="redad" />
+                                <label for="txtEdad">Edad</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 pt-3"> 
+                            <button id="btnAgregar" type="button" class="btn btn-success">
+                                <i class="bi bi-person-plus-fill"></i> Guardar Datos
+                            </button>
+                            
+                            <button id="btnMostrar" type="button" class="btn btn-warning"> <i
+                                    class="bi bi-people"></i> Mostrar personas
+                            </button>
+
+                            <button id="btnLimpiar" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
+                                Limpiar formulario
+                            </button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 shadow-lg p-3 mt-5 bg-body rounded">
+                <h3>Estudiantes registrados</h3>
+                <table id="tablaEstudiantes">
+                    <thead>
+                        <tr>
+                            <th>Carnet</th>
+                            <th>Nombre</th>
+                            <th>DUI</th>
+                            <th>NIT</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Correo Electrónico</th>
+                            <th>Edad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEstudiantesBody">
+                        <!-- Las filas de la tabla se llenarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </div>
+        <!-- COMPONENTE MODAL DE BOOTSTRAP-->
+
+        <!-- PERMITE MOSTRAR NOTIFICACIONES -->
+        <div class="toast-container top-8 start-50 translate-middle-x pt-4 mt-1" style="z-index: 1035;">
+            <div id="idNotificacion" class="toast text-bg-success" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="toast-header">
+                    <i class="bi bi-bell"></i>
+                    <strong class="me-auto">Notificacion</strong>
+                    <small>Hace un momento</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="idMensaje">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/formulario_ficha.js" defer></script>
+</body>
+
+</html>

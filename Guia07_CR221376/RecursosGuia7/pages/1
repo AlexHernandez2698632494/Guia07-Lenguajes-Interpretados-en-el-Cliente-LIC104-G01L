@@ -1,0 +1,130 @@
+ <div class="row">
+            <div class="col-12 shadow-1g p-3 mt-5 bg-body rounded">
+                <h3>Ficha de Inscripcion</h3>
+                <form id="idForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="idTxtCarnet"
+                                        placeholder="[A-Z][A-Z][0-9][0-9][0-9]" />
+                                    <label for="idTxtCarnet">Carnet </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-floating mb-3">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="idTxtNombre" placeholder="Nombre" />
+                                    <label for="idTxtNombre">Nombre del estudiante</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="idTxtDUI"
+                                    placeholder="[0-9]{8}-[0-9]" /><label for="idTxtDUI">DUI</label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="idTxtNIT"
+                                    placeholder="[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]" /><label for="idTxtNIT">NIT</label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="idTxtFechaNacimiento"
+                                    placeholder="Fecha de nacimiento" pattern="\d{2}-\d{2}-\d{4}"> <label
+                                    for="idTxtFechaNacimiento"> Fecha nacimiento</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="idTxtCorreoElectronico"
+                                    placeholder="Correo electrónico"> <label
+                                    for="idTxtCorreoElectronico">Correo electrónico</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="idTxtFechaNacimiento" placeholder="DDMMYYYY">
+                                <label for="idTxtFechaNacimiento">Fecha de nacimiento</label>
+                            </div>
+                        </div>
+                                                
+                    </div>
+                </form>
+            </div>
+        </div>
+/**--------------*/
+        document.getElementById("btnAgregar").addEventListener("click", function() {
+            // Obtener los valores ingresados por el usuario
+            var carnet = document.getElementById("txtCarnet").value;
+            var nombre = document.getElementById("txtNombre").value;
+            var dui = document.getElementById("txtDUI").value;
+            var nit = document.getElementById("txtNIT").value;
+            var fechaNacimiento = document.getElementById("txtFechaNacimiento").value;
+            var correo = document.getElementById("txtCorreo").value;
+            var edad = document.getElementById("txtEdad").value;
+    
+            // Expresiones regulares para la validación
+            var carnetRegex = /^[A-Z]{2}\d{3}$/;
+            var nombreRegex = /^[A-Za-z\s]+$/;
+            var duiRegex = /^\d{8}-\d{1}$/;
+            var nitRegex = /^\d{4}-\d{6}-\d{3}-\d{1}$/;
+            var fechaNacimientoRegex = /^\d{4}-\d{2}-\d{2}$/;
+            var correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var edadRegex = /^\d+$/;
+    
+            // Validar los campos usando expresiones regulares
+            if (!carnetRegex.test(carnet)) {
+                alert("Por favor, ingrese un carnet válido (Formato: AB001)");
+                return;
+            }
+    
+            if (!nombreRegex.test(nombre)) {
+                alert("Por favor, ingrese un nombre válido (sin números o caracteres especiales)");
+                return;
+            }
+    
+            if (!duiRegex.test(dui)) {
+                alert("Por favor, ingrese un DUI válido (Formato: ########-#)");
+                return;
+            }
+    
+            if (!nitRegex.test(nit)) {
+                alert("Por favor, ingrese un NIT válido (Formato: ####-######-###-#)");
+                return;
+            }
+    
+            if (!fechaNacimientoRegex.test(fechaNacimiento)) {
+                alert("Por favor, ingrese una fecha de nacimiento válida (Formato: YYYY-MM-DD)");
+                return;
+            }
+    
+            if (!correoRegex.test(correo)) {
+                alert("Por favor, ingrese un correo electrónico válido");
+                return;
+            }
+    
+            if (!edadRegex.test(edad)) {
+                alert("Por favor, ingrese una edad válida (solo números)");
+                return;
+            }
+    
+            // Si todos los campos son válidos, puedes enviar el formulario o realizar otras acciones
+            // Aquí puedes agregar el código para enviar los datos a través de AJAX o almacenarlos en algún lugar.
+            // ...
+    
+            // Limpiar los campos después de enviar el formulario (opcional)
+            document.getElementById("studentForm").reset();
+        });
